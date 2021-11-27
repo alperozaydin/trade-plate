@@ -1,0 +1,15 @@
+click
+pip-check-reqs
+pip-licenses
+pre-commit
+flake8
+flake8-docstrings
+numpy
+pytest
+pytest-cov
+pytest-pythonpath
+setuptools
+Sphinx
+sphinx-rtd-theme
+tox
+twine
