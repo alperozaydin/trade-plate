@@ -36,6 +36,7 @@ class Iloss:
             f"Invested: ${self.cost}\n"
             f"HODL: ${round(hodl_value, 2)}\n"
             f"LP: ${round(hodl_value * iloss + hodl_value, 2)}\n"
+            f"Profit/Loss: {round(self.profit_or_loss(), 2)}\n"
             f"------------------------------"
         )
 
@@ -54,3 +55,6 @@ class Iloss:
             self.asset1_amount * self.asset1_current_price
             + self.asset2_amount * self.asset2_current_price
         )
+
+    def profit_or_loss(self):
+        return self._hodl_value() - self.cost
