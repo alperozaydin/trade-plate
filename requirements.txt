@@ -2,3 +2,4 @@ click
 numpy
 pycoingecko
 python-binance
+yfinance

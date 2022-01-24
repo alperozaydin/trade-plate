@@ -36,7 +36,7 @@ class Iloss:
             f"Invested: ${self.cost}\n"
             f"HODL: ${round(hodl_value, 2)}\n"
             f"LP: ${round(hodl_value * iloss + hodl_value, 2)}\n"
-            f"Profit/Loss: {round(self.profit_or_loss(), 2)}\n"
+            f"Profit/Loss: {round(self.profit_or_loss(), 2)}$\n"
             f"------------------------------"
         )
 
