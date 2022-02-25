@@ -90,7 +90,11 @@ class Binance:
                 return int(round(-math.log(float(info.get("tickSize")), 10), 0))
 
     def create_buy_order(
-        self, max_price: float, min_price: float, budget: float, make_it=False,
+        self,
+        max_price: float,
+        min_price: float,
+        budget: float,
+        make_it=False,
     ) -> int:
         if self.current_price < max_price:
             print(

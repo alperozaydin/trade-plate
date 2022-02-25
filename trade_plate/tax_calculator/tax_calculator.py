@@ -2,6 +2,7 @@ import csv
 import json
 from datetime import datetime
 
+
 class TaxCalculator:
     """
     {'Date': '04/04/2021 01:30:43', 'Type': 'Buy', 'Buy Amount': '5', 'Buy Currency':
@@ -14,13 +15,25 @@ class TaxCalculator:
 
 
     """
-    
+
     DATE_FORMAT = "%m/%d/%Y %H:%M:%S"
-    
+
     def __init__(self):
         self.raw_data = []
         self.data = []
-        field_names = ('Date', 'Type', 'Buy Amount', 'Buy Currency', 'Sell Amount', 'Sell Currency', 'Fee Amount', 'Currency', 'Exchange', 'Comment', 'Deduct')
+        field_names = (
+            "Date",
+            "Type",
+            "Buy Amount",
+            "Buy Currency",
+            "Sell Amount",
+            "Sell Currency",
+            "Fee Amount",
+            "Currency",
+            "Exchange",
+            "Comment",
+            "Deduct",
+        )
         with open("/home/alper/Downloads/crypto-pro-main-copy.csv", "r") as f:
             csv_reader = csv.DictReader(f, field_names)
             for row in csv_reader:
@@ -32,7 +45,7 @@ class TaxCalculator:
                 try:
                     row["Buy Amount"] = float(row["Buy Amount"])
                     row["Sell Amount"] = float(row["Sell Amount"])
-                except:
+                except KeyError:
                     pass
                 self.raw_data.append(json.dumps(row))
         # print(self.raw_data)
@@ -87,24 +100,24 @@ class TaxCalculator:
                 else:
                     raise
 
-        sorted_buy_stack = sorted(buy_stack, key=lambda i: datetime.strptime(i["Date"], self.DATE_FORMAT))
-        sorted_sell_stack = sorted(sell_stack, key=lambda i: datetime.strptime(i["Date"], self.DATE_FORMAT))
+        sorted_buy_stack = sorted(
+            buy_stack, key=lambda i: datetime.strptime(i["Date"], self.DATE_FORMAT)
+        )
+        sorted_sell_stack = sorted(
+            sell_stack, key=lambda i: datetime.strptime(i["Date"], self.DATE_FORMAT)
+        )
 
         profit_loss = 0
-
+        buy = {}
         for sell in sorted_sell_stack:
             if sell["Sell Amount"] <= buy["Buy Amount"]:
                 buy = sorted_buy_stack[0]
-                profit_loss += sell["Buy Amount"] - (sell["Sell Amount"] * buy["Sell Amount"] / buy["Buy Amount"])
+                profit_loss += sell["Buy Amount"] - (
+                    sell["Sell Amount"] * buy["Sell Amount"] / buy["Buy Amount"]
+                )
                 buy["Buy Amount"] = buy["Buy Amount"] - sell["Sell Amount"]
                 if buy["Buy Amount"] == 0.0:
                     sorted_buy_stack.pop(0)
-            else:
-                for buy in sorted_buy_stack:
-                    if buy[""]
-
-
-
 
 
 tax_calculator = TaxCalculator()

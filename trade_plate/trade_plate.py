@@ -26,7 +26,10 @@ from trade_plate.tools.iloss import Iloss
 )
 def binance_plate_buy(asset: str, greed: str):
     asset = asset.upper()
-    binance = Binance(asset=asset, greed=greed,)
+    binance = Binance(
+        asset=asset,
+        greed=greed,
+    )
     binance.trade_summary()
 
     max_price, min_price = None, None
@@ -41,12 +44,18 @@ def binance_plate_buy(asset: str, greed: str):
     budget = click.prompt("Enter your budget", type=float)
 
     binance.create_buy_order(
-        max_price=max_value, min_price=min_value, budget=budget, make_it=False,
+        max_price=max_value,
+        min_price=min_value,
+        budget=budget,
+        make_it=False,
     )
 
     if is_confirmed():
         binance.create_buy_order(
-            max_price=max_value, min_price=min_value, budget=budget, make_it=True,
+            max_price=max_value,
+            min_price=min_value,
+            budget=budget,
+            make_it=True,
         )
         print("Orders created and made")
     else:
@@ -70,17 +79,22 @@ def binance_plate_buy(asset: str, greed: str):
 )
 def binance_plate_sell(asset: str, greed: str):
     asset = asset.upper()
-    binance = Binance(asset=asset, greed=greed,)
+    binance = Binance(
+        asset=asset,
+        greed=greed,
+    )
 
     quantity = click.prompt("Enter your quantity", type=float)
 
     binance.create_sell_order(
-        quantity=quantity, make_it=False,
+        quantity=quantity,
+        make_it=False,
     )
 
     if is_confirmed():
         binance.create_sell_order(
-            quantity=quantity, make_it=True,
+            quantity=quantity,
+            make_it=True,
         )
         print(f"\n{Constants.OKGREEN}All orders are created.{Constants.OKGREEN}")
 
@@ -90,6 +104,11 @@ def binance_plate_sell(asset: str, greed: str):
 
 @click.command()
 def iloss():
-    for asset_price_1, asset_price_2, cost in LiqudityProvider.LIQUDITY:
-        il = Iloss(asset_price_1=asset_price_1, asset_price_2=asset_price_2, cost=cost)
+    for pool_id, asset_price_1, asset_price_2, cost in LiqudityProvider.LIQUDITY:
+        il = Iloss(
+            pool_id=pool_id,
+            asset_price_1=asset_price_1,
+            asset_price_2=asset_price_2,
+            cost=cost,
+        )
         il.run()

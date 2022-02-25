@@ -1,5 +1,6 @@
-import trade_plate.cli as cli
 from click.testing import CliRunner, Result
+
+import trade_plate.cli as cli
 
 
 def test_trader_plate_version():

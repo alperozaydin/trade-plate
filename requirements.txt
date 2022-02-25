@@ -2,4 +2,5 @@ click
 numpy
 pycoingecko
 python-binance
+requests
 yfinance
