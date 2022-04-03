@@ -56,10 +56,8 @@ venv :
 
 	virtualenv --python python$(PY_VERSION) venv
 
-
-
 install:
-	pip install -r requirements.txt
+	pip install -r requirements.txt -r requirements_dev.txt
 
 licenses:
 	pip-licenses --with-url --format=rst \

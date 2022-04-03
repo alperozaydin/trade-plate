@@ -1,5 +1,6 @@
 import click
 
+from trade_plate.bots.nft_nint import near_nft_mint
 from trade_plate.exchanges.binance.binance_plate import Binance
 from trade_plate.constants import Constants
 from trade_plate.tools.constants import LiqudityProvider
@@ -112,3 +113,43 @@ def iloss():
             cost=cost,
         )
         il.run()
+
+
+@click.command()
+@click.option(
+    "--nft_contract",
+    type=str,
+    help="Contract ID e.g. nft.thedons.near",
+    default=None,
+    required=True,
+)
+@click.option(
+    "--mint_method_name",
+    type=str,
+    help="Name of the mint method e.g. nft_mint_one",
+    default=None,
+    required=True,
+)
+@click.option(
+    "--mint_method_arg",
+    type=str,
+    help="Argument for the mint method if it is needed",
+    default="{}",
+    required=True,
+)
+@click.option(
+    "--account_id",
+    type=str,
+    help="Account id which will execute the contract e.g. myaccount.near",
+    default=None,
+    requrired=True,
+)
+def nft_mint(
+    nft_contract: str, mint_method_name: str, mint_method_arg: str, account_id: str
+):
+    near_nft_mint(
+        nft_contract=nft_contract,
+        mint_method_name=mint_method_name,
+        mint_method_arg=mint_method_arg,
+        account_id=account_id,
+    )
