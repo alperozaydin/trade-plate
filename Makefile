@@ -21,8 +21,8 @@ freeze:
 lint:
 	pre-commit run --all-files
 
-test: lint
-	py.test --cov-report term --cov=$(PROJ_SLUG) tests/
+test:
+	py.test -s --cov-report term --cov=$(PROJ_SLUG) tests/
 
 quicktest:
 	py.test --cov-report term --cov=$(PROJ_SLUG) tests/

@@ -3,7 +3,8 @@ import click
 from trade_plate.bots.nft_nint import near_nft_mint
 from trade_plate.exchanges.binance.binance_plate import Binance
 from trade_plate.constants import Constants
-from trade_plate.tools.constants import LiqudityProvider
+from trade_plate.tools.constants import LiqudityProvider, NEAR_COLLECTIONS
+from trade_plate.tools.nft_marketplace.paras import Paras
 
 from trade_plate.utils import is_confirmed
 
@@ -153,3 +154,9 @@ def nft_mint(
         mint_method_arg=mint_method_arg,
         account_id=account_id,
     )
+
+
+@click.command()
+def my_nft():
+    Paras(collection_id=NEAR_COLLECTIONS.MR_BROWN).show_results()
+    Paras(collection_id=NEAR_COLLECTIONS.MARA_GEN_1).show_results()
