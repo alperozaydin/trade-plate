@@ -142,7 +142,7 @@ def iloss():
     type=str,
     help="Account id which will execute the contract e.g. myaccount.near",
     default=None,
-    requrired=True,
+    required=True,
 )
 def nft_mint(
     nft_contract: str, mint_method_name: str, mint_method_arg: str, account_id: str
