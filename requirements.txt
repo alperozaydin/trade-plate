@@ -3,4 +3,5 @@ numpy
 pycoingecko
 python-binance
 requests
+tabulate
 yfinance

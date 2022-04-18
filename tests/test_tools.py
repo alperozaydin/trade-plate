@@ -1,7 +1,6 @@
 import pytest
 import uuid
 
-from trade_plate.tools.constants import NEAR_COLLECTIONS
 from trade_plate.tools.iloss import Iloss
 from trade_plate.tools.nft_marketplace.paras import Paras
 
@@ -34,5 +33,5 @@ def test_iloss(pool_id, asset_price_1, asset_price_2, cost):
 
 
 def test_paras_api():
-    paras = Paras(collection_id=NEAR_COLLECTIONS.MR_BROWN)
+    paras = Paras(collection_id="mrbrownproject.near")
     assert paras

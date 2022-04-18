@@ -4,7 +4,7 @@ from typing import Tuple
 import requests
 from pycoingecko import CoinGeckoAPI
 
-from trade_plate.tools.constants import DeBankAPI, PROTOCOLS, GENERAL
+from trade_plate.tools.constants import DeBankAPI, PROTOCOLS, WALLETS
 
 
 class Iloss:
@@ -68,7 +68,7 @@ class Iloss:
     def _real_value(self) -> float:
         with self.session.get(
             DeBankAPI.PROTOCOL_URL,
-            params={"protocol_id": PROTOCOLS.AURORA_NEARPAD, "id": GENERAL.USER_WALLET},
+            params={"protocol_id": PROTOCOLS.AURORA_NEARPAD, "id": WALLETS.EVM_WALLET},
         ) as r:
             portfolios = json.loads(r.content)
 

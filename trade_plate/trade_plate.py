@@ -1,9 +1,10 @@
 import click
+from tabulate import tabulate
 
 from trade_plate.bots.nft_nint import near_nft_mint
 from trade_plate.exchanges.binance.binance_plate import Binance
 from trade_plate.constants import Constants
-from trade_plate.tools.constants import LiqudityProvider, NEAR_COLLECTIONS
+from trade_plate.tools.constants import LiqudityProvider, PARAS
 from trade_plate.tools.nft_marketplace.paras import Paras
 
 from trade_plate.utils import is_confirmed
@@ -158,5 +159,29 @@ def nft_mint(
 
 @click.command()
 def my_nft():
-    Paras(collection_id=NEAR_COLLECTIONS.MR_BROWN).show_results()
-    Paras(collection_id=NEAR_COLLECTIONS.MARA_GEN_1).show_results()
+    headers = ["Collection Name", "Holding #", "Floor Price", "Net Worth"]
+    nft_data = []
+
+    net_worth = 0
+    net_worth_usd = 0
+    for collection_id in PARAS.NFT_COLLECTIONS:
+        collection = Paras(collection_id=collection_id)
+        collection_value_usd = round(
+            collection.get_near_price() * collection.collection_value, 2
+        )
+        nft_data.append(
+            [
+                collection.collection_id,
+                collection.holding_amount,
+                f"{round(collection.floor_price, 2)} N",
+                f"{collection.collection_value} N (${collection_value_usd})",
+            ]
+        )
+        net_worth += collection.collection_value
+        net_worth_usd += collection_value_usd
+
+    nft_data.append(
+        ["TOTAL", "", "", f"{round(net_worth, 2)} N (${round(net_worth_usd, 2)})"]
+    )
+
+    print(tabulate(nft_data, headers=headers, tablefmt="grid"))
