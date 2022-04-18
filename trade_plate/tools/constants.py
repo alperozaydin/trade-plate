@@ -1,3 +1,6 @@
+import os
+
+
 class LiqudityProvider:
     """
     For asset ids, check coingecko docs
@@ -5,17 +8,32 @@ class LiqudityProvider:
 
     LIQUDITY = [
         [
-            "pool_id",  # pool id of LP
-            ("first_asset", 1),  # first asset with purchase price in usd
-            ("second_asset", 1),  # second asset with purchase price in usd
-            1000,  # total cost in usd (combined)
+            "0x2aef68f92cfbafa4b542f60044c7596e65612d20",  # pool id of LP
+            ("nearpad", 0.459),  # first asset with purchase price in usd
+            ("near", 9.039),  # second asset with purchase price in usd
+            2698,  # total cost in usd (combined)
         ]
     ]
 
 
-class WALLETS:
-    EVM_WALLET = "my evm wallet address"  # MM wallet address
-    NEAR_WALLET = "my near wallet address"
+class _WALLETS:
+    _EVM_WALLET = None
+    _NEAR_WALLET = None
+
+    @property
+    def EVM_WALLET(self):
+        if not self._EVM_WALLET:
+            self._EVM_WALLET = os.getenv("MY_EVM_WALLET_ADDRESS")
+        return self._EVM_WALLET
+
+    @property
+    def NEAR_WALLET(self):
+        if not self._NEAR_WALLET:
+            self._NEAR_WALLET = os.getenv("MY_NEAR_WALLET_ADDRESS")
+        return self._NEAR_WALLET
+
+
+WALLETS: _WALLETS = _WALLETS()
 
 
 class DeBankAPI:

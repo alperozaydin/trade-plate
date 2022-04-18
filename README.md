@@ -1,26 +1,17 @@
 # trade_plate
 
-Crypto trading tool
+Crypto Trading & Monitoring Tool
 
 ## Project Features
 
-* [trade_plate](http://trade-plate.readthedocs.io/)
-* a starter [Click](http://click.pocoo.org/5/) command-line application
-* automated unit tests you can run with [pytest](https://docs.pytest.org/en/latest/)
-* a [Sphinx](http://www.sphinx-doc.org/en/master/) documentation project
+* Give buy/sell orders on Binance (supports partial buy/sell orders for the given price range)
+* NFT portfolio monitoring (on NEAR blockchain)
+* Impermanent loss monitoring for your portfolio
+* NFT mint from smart contract (NEAR blockchain) - very early stage
 
 ## Getting Started
 
-The project's documentation contains a section to help you
-[get started](https://trade-plate.readthedocs.io/en/latest/getting_started.html) as a developer or
-user of the library.
-
-## Development Prerequisites
-
-If you're going to be working in the code (rather than just using the library), you'll want a few utilities.
-
-* [GNU Make](https://www.gnu.org/software/make/)
-* [Pandoc](https://pandoc.org/)
+### todo
 
 ## Resources
 
@@ -30,12 +21,11 @@ Below are some handy resource links.
 * [Click](http://click.pocoo.org/5/) is a Python package for creating beautiful command line interfaces in a composable way with as little code as necessary.
 * [Sphinx](http://www.sphinx-doc.org/en/master/) is a tool that makes it easy to create intelligent and beautiful documentation, written by Geog Brandl and licnsed under the BSD license.
 * [pytest](https://docs.pytest.org/en/latest/) helps you write better programs.
-* [GNU Make](https://www.gnu.org/software/make/) is a tool which controls the generation of executables and other non-source files of a program from the program's source files.
 
 
 ## Authors
 
-* **Alper Ozaydin** - *Initial work* - [github](https://github.com/alperozaydin)
+* **Alper Ozaydin** - [github](https://github.com/alperozaydin) - [website](https://alperozaydin.com)
 
 See also the list of [contributors](https://github.com/alperozaydin/trade_plate/contributors) who participated in this project.
 
