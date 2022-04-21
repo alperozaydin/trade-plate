@@ -54,10 +54,10 @@ class PARAS:
         "mrbrownproject.near",
         "mara-smartcontract.near",
         "nft.pixacottaarmy.near",
-        "nft.pixacottaarmy.near",
         "near_panda_squad.near",
         "extinctheroes.tenk.near",
         "thebullishbulls.near",
         "futurenft.near",
         "starry-night-by-markoethnear",
+        "astropup.near",
     ]
