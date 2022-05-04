@@ -9,9 +9,9 @@ class LiqudityProvider:
     LIQUDITY = [
         [
             "0x2aef68f92cfbafa4b542f60044c7596e65612d20",  # pool id of LP
-            ("nearpad", 0.459),  # first asset with purchase price in usd
+            ("nearpad", 0.402),  # first asset with purchase price in usd
             ("near", 9.039),  # second asset with purchase price in usd
-            2698,  # total cost in usd (combined)
+            2023.5,  # total cost in usd (combined)
         ]
     ]
 
@@ -56,8 +56,6 @@ class PARAS:
         "nft.pixacottaarmy.near",
         "near_panda_squad.near",
         "extinctheroes.tenk.near",
-        "thebullishbulls.near",
-        "futurenft.near",
         "starry-night-by-markoethnear",
         "astropup.near",
     ]
