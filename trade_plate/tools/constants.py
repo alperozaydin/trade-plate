@@ -8,10 +8,10 @@ class LiqudityProvider:
 
     LIQUDITY = [
         [
-            "0x2aef68f92cfbafa4b542f60044c7596e65612d20",  # pool id of LP
-            ("nearpad", 0.402),  # first asset with purchase price in usd
-            ("near", 9.039),  # second asset with purchase price in usd
-            2023.5,  # total cost in usd (combined)
+            "",  # pool id of LP
+            ("nearpad", 0.10),  # first asset with purchase price in usd
+            ("near", 6.00),  # second asset with purchase price in usd
+            200,  # total cost in usd (combined)
         ]
     ]
 
@@ -58,4 +58,6 @@ class PARAS:
         "extinctheroes.tenk.near",
         "starry-night-by-markoethnear",
         "astropup.near",
+        "undead.secretskelliessociety.near",
+        "cartelgen1.neartopia.near",
     ]
