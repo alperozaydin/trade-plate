@@ -12,7 +12,7 @@ class NftMint:
         mint_method_name: str,
         mint_method_arg: str,
         account_id: str,
-        force: bool,
+        force: bool = False,
     ):
         self.nft_contract = nft_contract
         self.mint_method_name = mint_method_name

@@ -73,7 +73,7 @@ class Iloss:
             portfolios = json.loads(r.content)
 
         for portfolio in portfolios.get("portfolio_item_list"):
-            if portfolio.get("pool_id") == self.pool_id:
+            if portfolio.get("pool").get("id") == self.pool_id:
                 return portfolio.get("stats").get("asset_usd_value")
 
     def profit_or_loss(self):

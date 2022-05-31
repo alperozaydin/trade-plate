@@ -8,7 +8,7 @@ class LiqudityProvider:
 
     LIQUDITY = [
         [
-            "",  # pool id of LP
+            "0x2aef68f92cfbafa4b542f60044c7596e65612d20:5",  # pool id of LP
             ("nearpad", 0.10),  # first asset with purchase price in usd
             ("near", 6.00),  # second asset with purchase price in usd
             200,  # total cost in usd (combined)
