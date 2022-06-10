@@ -57,7 +57,6 @@ class PARAS:
         "near_panda_squad.near",
         "extinctheroes.tenk.near",
         "starry-night-by-markoethnear",
-        "astropup.near",
         "undead.secretskelliessociety.near",
         "cartelgen1.neartopia.near",
     ]
