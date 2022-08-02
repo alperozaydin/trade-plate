@@ -17,6 +17,27 @@ Crypto Trading & Monitoring Tool
 
 `$ make build`
 
+`$ trade-plate --help`
+
+```buildoutcfg
+Usage: trade-plate [OPTIONS] COMMAND [ARGS]...
+
+  Console script for trade_plate.
+
+Options:
+  --version  Show the version and exit.
+  --help     Show this message and exit.
+
+Commands:
+  buy
+  get_offers
+  iloss
+  mint
+  mint_bot
+  my_nft
+  sell
+```
+
 ## Resources
 
 Below are some handy resource links.
