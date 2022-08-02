@@ -11,7 +11,11 @@ Crypto Trading & Monitoring Tool
 
 ## Getting Started
 
-### todo
+`$ make venv`
+
+`$ source venv/bin/activate`
+
+`$ make build`
 
 ## Resources
 

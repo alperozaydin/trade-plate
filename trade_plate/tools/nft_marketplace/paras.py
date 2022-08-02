@@ -1,9 +1,12 @@
 import json
+import logging
 
 import requests
 from pycoingecko import CoinGeckoAPI
 
 from trade_plate.tools.constants import PARAS, WALLETS
+
+LOG = logging.getLogger()
 
 
 class Paras:
@@ -56,3 +59,21 @@ class Paras:
 
     def get_near_price(self):
         return self.cg.get_price(ids="near", vs_currencies="usd")["near"]["usd"]
+
+    def get_offers_collection(self):
+        results = []
+        total_cards = self.collection_data.get("total_cards")
+        for i in range(1, total_cards):
+            if i % 25 == 0:
+                LOG.info(f"Fetching offers for {self.collection_id}: {i}/{total_cards}")
+            with self.session.get(
+                PARAS.COLLECTION_OFFERS,
+                params={
+                    "token_id": str(i),
+                    "contract_id": self.collection_id,
+                },
+            ) as r:
+                data = json.loads(r.content).get("data")
+                if data.get("results"):
+                    results.append(data.get("results"))
+        return results

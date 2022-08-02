@@ -49,6 +49,7 @@ class PARAS:
     _BASE_URL = "https://api-v2-mainnet.paras.id"
     COLLECTION_STATS = f"{_BASE_URL}/collection-stats"
     COLLECTION_TOKEN = f"{_BASE_URL}/token"
+    COLLECTION_OFFERS = f"{_BASE_URL}/offers"
 
     NFT_COLLECTIONS = [
         "mrbrownproject.near",

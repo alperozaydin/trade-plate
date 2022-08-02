@@ -1,3 +1,5 @@
+import logging
+
 import click
 from tabulate import tabulate
 
@@ -10,6 +12,10 @@ from trade_plate.tools.nft_marketplace.paras import Paras
 from trade_plate.utils import is_confirmed
 
 from trade_plate.tools.iloss import Iloss
+
+logging.basicConfig(level=logging.INFO)
+
+LOG = logging.getLogger()
 
 
 @click.command()
@@ -247,3 +253,16 @@ def my_nft():
     )
 
     print(tabulate(nft_data, headers=headers, tablefmt="grid"))
+
+
+@click.option(
+    "--collection",
+    type=str,
+    help="Name of the collection e.g. mrbrownproject.near",
+    required=True,
+)
+@click.command()
+def get_offers_collection(collection: str):
+    paras = Paras(collection_id=collection)
+    results = paras.get_offers_collection()
+    LOG.info(f"Results: {results}")
