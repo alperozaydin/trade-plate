@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 
 import click
 from tabulate import tabulate
@@ -264,5 +265,24 @@ def my_nft():
 @click.command()
 def get_offers_collection(collection: str):
     paras = Paras(collection_id=collection)
-    results = paras.get_offers_collection()
-    LOG.info(f"Results: {results}")
+    all_offers = paras.get_offers_collection()
+
+    headers = ["Token ID", "Price", "Offeror", "Offer Date"]
+    offers_data = []
+
+    for offers in all_offers:
+        for offer in offers:
+            price = offer.get("price")
+            if price:
+                offers_data.append(
+                    [
+                        offer.get("token_id"),
+                        f"{round(float(price) / 1e24, 2)} N",
+                        offer.get("buyer_id"),
+                        datetime.utcfromtimestamp(
+                            offer.get("issued_at") / 1000
+                        ).strftime("%Y-%m-%d %H:%M:%S"),
+                    ]
+                )
+
+    print(tabulate(offers_data, headers=headers, tablefmt="grid"))

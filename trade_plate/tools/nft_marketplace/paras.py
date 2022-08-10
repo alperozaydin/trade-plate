@@ -19,6 +19,7 @@ class Paras:
         ) as r:
             self.collection_stats = json.loads(r.content)
         self.collection_data = self.collection_stats.get("data").get("results")
+        self.total_cards = self.collection_data.get("total_cards")
         self.collection_fp = None
         self.token_data = None
         self._collection_value = None
@@ -61,15 +62,17 @@ class Paras:
         return self.cg.get_price(ids="near", vs_currencies="usd")["near"]["usd"]
 
     def get_offers_collection(self):
+        token_ids = self._fetch_token_ids()
         results = []
-        total_cards = self.collection_data.get("total_cards")
-        for i in range(1, total_cards):
-            if i % 25 == 0:
-                LOG.info(f"Fetching offers for {self.collection_id}: {i}/{total_cards}")
+        for i, id in enumerate(token_ids):
+            if i % 100 == 0:
+                LOG.info(
+                    f"Fetching offers for {self.collection_id}: {i}/{self.total_cards}"
+                )
             with self.session.get(
                 PARAS.COLLECTION_OFFERS,
                 params={
-                    "token_id": str(i),
+                    "token_id": id,
                     "contract_id": self.collection_id,
                 },
             ) as r:
@@ -77,3 +80,23 @@ class Paras:
                 if data.get("results"):
                     results.append(data.get("results"))
         return results
+
+    def _fetch_token_ids(self):
+        token_ids = []
+        for limit in range(0, self.total_cards, 100):
+            LOG.info(
+                f"Fetching token ids for {self.collection_id}: "
+                f"{limit}/{self.total_cards}"
+            )
+            with self.session.get(
+                PARAS.COLLECTION_TOKEN,
+                params={
+                    "collection_id": self.collection_id,
+                    "__skip": limit,
+                    "__limit": 100,
+                },
+            ) as r:
+                tokens = json.loads(r.content).get("data").get("results")
+            for token in tokens:
+                token_ids.append(token.get("token_id"))
+        return token_ids

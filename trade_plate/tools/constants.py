@@ -50,6 +50,8 @@ class PARAS:
     COLLECTION_STATS = f"{_BASE_URL}/collection-stats"
     COLLECTION_TOKEN = f"{_BASE_URL}/token"
     COLLECTION_OFFERS = f"{_BASE_URL}/offers"
+    COLLECTIONS = f"{_BASE_URL}/collections"
+    COLLECTION_ATTRIBUTES = f"{_BASE_URL}/collection-attributes"
 
     NFT_COLLECTIONS = [
         "mrbrownproject.near",
