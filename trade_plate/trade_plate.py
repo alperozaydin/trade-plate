@@ -235,19 +235,20 @@ def my_nft():
     net_worth_usd = 0
     for collection_id in PARAS.NFT_COLLECTIONS:
         collection = Paras(collection_id=collection_id)
-        collection_value_usd = round(
-            collection.get_near_price() * collection.collection_value, 2
-        )
-        nft_data.append(
-            [
-                collection.collection_id,
-                collection.holding_amount,
-                f"{round(collection.floor_price, 2)} N",
-                f"{collection.collection_value} N (${collection_value_usd})",
-            ]
-        )
-        net_worth += collection.collection_value
-        net_worth_usd += collection_value_usd
+        if collection.holding_amount:
+            collection_value_usd = round(
+                collection.get_near_price() * collection.collection_value, 2
+            )
+            nft_data.append(
+                [
+                    collection.collection_id,
+                    collection.holding_amount,
+                    f"{round(collection.floor_price, 2)} N",
+                    f"{collection.collection_value} N (${collection_value_usd})",
+                ]
+            )
+            net_worth += collection.collection_value
+            net_worth_usd += collection_value_usd
 
     nft_data.append(
         ["TOTAL", "", "", f"{round(net_worth, 2)} N (${round(net_worth_usd, 2)})"]

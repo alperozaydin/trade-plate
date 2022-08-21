@@ -62,4 +62,7 @@ class PARAS:
         "starry-night-by-markoethnear",
         "undead.secretskelliessociety.near",
         "cartelgen1.neartopia.near",
+        "nearnautnft.near",
+        "asac.near",
+        "nearton_nft.near",
     ]
