@@ -1,5 +1,5 @@
 """Console script for trade_plate."""
-import click
+import asyncclick as click
 from trade_plate.trade_plate import (
     binance_plate_buy,
     binance_plate_sell,

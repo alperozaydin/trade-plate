@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime
 
-import click
+import asyncclick as click
 from tabulate import tabulate
 
 from trade_plate.bots.nft_nint import NftMint
@@ -263,10 +263,21 @@ def my_nft():
     help="Name of the collection e.g. mrbrownproject.near",
     required=True,
 )
+@click.option(
+    "--concurrent",
+    type=bool,
+    help="Run the command with async functionality",
+    is_flag=True,
+    default=False,
+    required=True,
+)
 @click.command()
-def get_offers_collection(collection: str):
+async def get_offers_collection(collection: str, concurrent: bool):
     paras = Paras(collection_id=collection)
-    all_offers = paras.get_offers_collection()
+    if concurrent:
+        all_offers = paras.get_offers_collection_async()
+    else:
+        all_offers = paras.get_offers_collection()
 
     headers = ["Token ID", "Price", "Offeror", "Offer Date"]
     offers_data = []
