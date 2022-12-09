@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 
 class LiqudityProvider:
@@ -66,3 +67,7 @@ class PARAS:
         "asac.near",
         "nearton_nft.near",
     ]
+
+
+class PORTFOLIO:
+    PATH = Path.home() / "local/crypto-pro-main.csv"

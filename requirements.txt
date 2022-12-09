@@ -3,6 +3,7 @@ anyio
 asyncclick
 asyncio
 click
+matplotlib
 numpy
 pycoingecko
 python-binance
