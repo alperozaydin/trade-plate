@@ -16,6 +16,7 @@ class CURRENCIES:
     MINA = "MINA"
     GRT = "GRT"
     USD = "USD"
+    EUR = "EUR"
 
 
 btc_portfolio = []
@@ -27,8 +28,12 @@ with open(PORTFOLIO.PATH, newline="") as csvfile:
     csv_reader = csv.reader(csvfile, delimiter=",")
 
     for row in csv_reader:
-        if (row[3] == CURRENCIES.BTC and row[5] == CURRENCIES.USD) or (
-            row[3] == CURRENCIES.USD and row[5] == CURRENCIES.BTC
+        if (
+            row[3] == CURRENCIES.BTC
+            and (row[5] == CURRENCIES.USD or row[5] == CURRENCIES.EUR)
+        ) or (
+            (row[3] == CURRENCIES.USD or row[3] == CURRENCIES.EUR)
+            and row[5] == CURRENCIES.BTC
         ):
             btc_portfolio.append(row)
         if (row[3] == CURRENCIES.ETH and row[5] == CURRENCIES.USD) or (
@@ -56,7 +61,7 @@ def summary(portfolio: list):
     sell_amount: float = 0
     for row in portfolio:
         date_time = datetime.strptime(row[0], "%m/%d/%Y %H:%M:%S")
-        if date_time > datetime(2022, 9, 13):
+        if date_time > datetime(2022, 11, 1):
             if row[1] == "Buy":
                 buy_amount += float(row[2])
                 buy_cost += float(row[4])
@@ -70,7 +75,8 @@ def summary(portfolio: list):
 
 
 def show(cost, amount):
-    print(f"Cost: {cost}\nAmount: {amount}\nAverage: {(cost) / (amount)}")
+    if amount:
+        print(f"Cost: {cost}\nAmount: {amount}\nAverage: {(cost) / (amount)}")
 
 
 total_cost = 0
