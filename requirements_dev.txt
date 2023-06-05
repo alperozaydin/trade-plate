@@ -6,6 +6,7 @@ flake8
 flake8-docstrings
 numpy
 pytest
+pytest-asyncio
 pytest-cov
 pytest-mock
 pytest-pythonpath
