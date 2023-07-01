@@ -114,8 +114,15 @@ def binance_plate_sell(asset: str, greed: str):
 
 @click.command()
 def iloss():
-    for pool_id, asset_price_1, asset_price_2, cost in LiqudityProvider.LIQUDITY:
+    for (
+        protocol_id,
+        pool_id,
+        asset_price_1,
+        asset_price_2,
+        cost,
+    ) in LiqudityProvider.LIQUDITY:
         il = Iloss(
+            protocol_id=protocol_id,
             pool_id=pool_id,
             asset_price_1=asset_price_1,
             asset_price_2=asset_price_2,

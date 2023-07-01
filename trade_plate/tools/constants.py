@@ -9,10 +9,14 @@ class LiqudityProvider:
 
     LIQUDITY = [
         [
-            "0x2aef68f92cfbafa4b542f60044c7596e65612d20:5",  # pool id of LP
-            ("nearpad", 0.10),  # first asset with purchase price in usd
-            ("near", 6.00),  # second asset with purchase price in usd
-            200,  # total cost in usd (combined)
+            "pze_visor",  # protocol id i.e aurora_nearpad
+            "0x04c6b11E1Ffe1F1032BD62adb343C9D07767489c:5",  # pool id of LP
+            (
+                "ethereum",
+                0.277526800746134339,
+            ),  # first asset with purchase price in usd
+            ("usd-coin", 998.881692),  # second asset with purchase price in usd
+            1531.56,  # total cost in usd (combined)
         ]
     ]
 
@@ -40,6 +44,8 @@ WALLETS: _WALLETS = _WALLETS()
 class DeBankAPI:
     _BASE_URL = "https://openapi.debank.com/"
     PROTOCOL_URL = f"{_BASE_URL}/v1/user/protocol"
+
+    ACCESS_KEY = os.getenv("DEBANK_ACCESS_KEY")
 
 
 class PROTOCOLS:

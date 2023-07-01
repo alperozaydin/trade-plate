@@ -4,18 +4,20 @@ from typing import Tuple
 import requests
 from pycoingecko import CoinGeckoAPI
 
-from trade_plate.tools.constants import DeBankAPI, PROTOCOLS, WALLETS
+from trade_plate.tools.constants import DeBankAPI, WALLETS
 
 
 class Iloss:
     def __init__(
         self,
+        protocol_id: str,
         pool_id: str,
         asset_price_1: Tuple[str, float],
         asset_price_2: Tuple[str, float],
         cost: float = 1000,
     ):
         self.cg = CoinGeckoAPI()
+        self.protocol_id = protocol_id
         self.pool_id = pool_id
         self.cost = cost
         self.asset1, self.price1 = asset_price_1
@@ -65,12 +67,17 @@ class Iloss:
             + self.asset2_amount * self.asset2_current_price
         )
 
+    #  Remove debank API because there is no free version anymore
     def _real_value(self) -> float:
         with self.session.get(
             DeBankAPI.PROTOCOL_URL,
-            params={"protocol_id": PROTOCOLS.AURORA_NEARPAD, "id": WALLETS.EVM_WALLET},
+            headers={DeBankAPI.ACCESS_KEY},
+            params={"protocol_id": self.protocol_id, "id": WALLETS.EVM_WALLET},
         ) as r:
-            portfolios = json.loads(r.content)
+            if r.ok:
+                portfolios = json.loads(r.content)
+            else:
+                raise r.content
 
         for portfolio in portfolios.get("portfolio_item_list"):
             if portfolio.get("pool").get("id") == self.pool_id:
