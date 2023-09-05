@@ -1,9 +1,6 @@
-import asyncio
 import json
 import logging
 
-import aiohttp
-import nest_asyncio
 import requests
 from pycoingecko import CoinGeckoAPI
 
@@ -31,9 +28,6 @@ class Paras:
         self.token_data = None
         self._collection_value = None
         self.cg = CoinGeckoAPI()
-
-        nest_asyncio.apply()
-        self.loop = asyncio.get_event_loop()
 
     @property
     def collection_id(self):
@@ -110,67 +104,6 @@ class Paras:
             for token in tokens:
                 token_ids.append(token.get("token_id"))
         return token_ids
-
-    async def __fetch_token_ids_async(self, limit, session):
-        async with session.get(
-            PARAS.COLLECTION_TOKEN,
-            params={
-                "collection_id": self.collection_id,
-                "__skip": limit,
-                "__limit": 100,
-            },
-        ) as r:
-            result = await r.text()
-            tokens = json.loads(result).get("data").get("results")
-            for token in tokens:
-                self.token_ids.append(token.get("token_id"))
-
-    async def _fetch_token_ids_async(self) -> None:
-        self.token_ids = []
-        connector = aiohttp.TCPConnector(limit=100)
-        async with aiohttp.ClientSession(connector=connector) as session:
-            tasks = []
-            for limit in range(0, self.total_cards, 100):
-                task = asyncio.ensure_future(
-                    self.__fetch_token_ids_async(limit=limit, session=session)
-                )
-                tasks.append(task)
-            self.loop.run_until_complete(asyncio.gather(*tasks))
-
-    async def _get_offers_async(self, session, id) -> None:
-        while True:
-            async with session.get(
-                PARAS.COLLECTION_OFFERS,
-                params={
-                    "token_id": id,
-                    "contract_id": self.collection_id,
-                },
-            ) as r:
-                if r.ok:
-                    result = await r.text()
-                    data = json.loads(result).get("data")
-                    self.all_offers.append(data.get("results", []))
-                    return
-                await asyncio.sleep(1)
-
-    async def _get_offers_collection_async(self) -> list:
-        self.all_offers = []
-        self.loop.run_until_complete(self._fetch_token_ids_async())
-        connector = aiohttp.TCPConnector(limit=self.rate_limit)
-        async with aiohttp.ClientSession(connector=connector) as session:
-            for i, id in enumerate(self.token_ids):
-                tasks = []
-                task = asyncio.ensure_future(
-                    self._get_offers_async(session=session, id=id)
-                )
-                tasks.append(task)
-            LOG.info("Processing, it may take a while.")
-            self.loop.run_until_complete(asyncio.gather(*tasks))
-
-        return self.all_offers
-
-    def get_offers_collection_async(self):
-        return self.loop.run_until_complete(self._get_offers_collection_async())
 
     @property
     def rate_limit(self) -> int:

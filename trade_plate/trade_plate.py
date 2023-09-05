@@ -1,18 +1,16 @@
 import logging
 from datetime import datetime
 
-import asyncclick as click
+import click
 from tabulate import tabulate
 
 from trade_plate.bots.nft_nint import NftMint
-from trade_plate.exchanges.binance.binance_plate import Binance
 from trade_plate.constants import Constants
+from trade_plate.exchanges.binance.binance_plate import Binance
 from trade_plate.tools.constants import LiqudityProvider, PARAS
-from trade_plate.tools.nft_marketplace.paras import Paras
-
-from trade_plate.utils import is_confirmed
-
 from trade_plate.tools.iloss import Iloss
+from trade_plate.tools.nft_marketplace.paras import Paras
+from trade_plate.utils import is_confirmed
 
 logging.basicConfig(level=logging.INFO)
 
@@ -270,21 +268,10 @@ def my_nft():
     help="Name of the collection e.g. mrbrownproject.near",
     required=True,
 )
-@click.option(
-    "--concurrent",
-    type=bool,
-    help="Run the command with async functionality",
-    is_flag=True,
-    default=False,
-    required=True,
-)
 @click.command()
-async def get_offers_collection(collection: str, concurrent: bool):
+def get_offers_collection(collection: str):
     paras = Paras(collection_id=collection)
-    if concurrent:
-        all_offers = paras.get_offers_collection_async()
-    else:
-        all_offers = paras.get_offers_collection()
+    all_offers = paras.get_offers_collection()
 
     headers = ["Token ID", "Price", "Offeror", "Offer Date"]
     offers_data = []

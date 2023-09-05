@@ -1,6 +1,6 @@
 aiohttp
 anyio
-asyncclick
+click
 asyncio
 click
 matplotlib
