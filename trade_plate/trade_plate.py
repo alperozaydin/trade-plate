@@ -79,7 +79,7 @@ def binance_plate_buy(asset: str, greed: str):
     required=True,
 )
 @click.option(
-    "--greedy",
+    "--greed",
     type=str,
     help="Greedy level is how you eager to get that asset",
     default="5",

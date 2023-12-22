@@ -11,7 +11,6 @@ LOG = logging.getLogger()
 
 class Paras:
 
-    RATE_LIMIT_MIN = 600
     RATE_LIMIT_SECOND = 500
 
     def __init__(self, collection_id):
@@ -104,10 +103,3 @@ class Paras:
             for token in tokens:
                 token_ids.append(token.get("token_id"))
         return token_ids
-
-    @property
-    def rate_limit(self) -> int:
-        if self.total_cards <= self.RATE_LIMIT_SECOND:
-            return self.RATE_LIMIT_SECOND
-        else:
-            return 10
