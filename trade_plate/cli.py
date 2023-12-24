@@ -1,11 +1,12 @@
 """Console script for trade_plate."""
 import click
+
+from trade_plate.tools.nft_marketplace.paras_cli import my_nft
 from trade_plate.trade_plate import (
     binance_plate_buy,
     binance_plate_sell,
     iloss,
     nft_mint,
-    my_nft,
     nft_mint_bot,
     get_offers_collection,
 )

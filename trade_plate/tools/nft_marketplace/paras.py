@@ -19,6 +19,7 @@ class Paras:
         self._total_cards = None
         self.collection_fp = None
         self.token_data = None
+        self._holding_amount = None
         self._collection_value = None
         self.cg = CoinGeckoAPI()
 
@@ -41,8 +42,9 @@ class Paras:
     @property
     def floor_price(self):
         self.collection_fp = self.collection_data.get("floor_price")
-        assert self.collection_fp, "Floor price cannot be None"
-        return int(self.collection_fp) / 1e24
+        if self.collection_fp:
+            return int(self.collection_fp) / 1e24
+        return 0
 
     def _get_nft_data_by_owner(self):
         with self.session.get(
@@ -53,13 +55,13 @@ class Paras:
                 "__limit": "1000",
             },
         ) as r:
-            return json.loads(r.content)
+            return json.loads(r.content).get("data").get("results")
 
     @property
     def holding_amount(self):
-        if not self.token_data:
-            self.token_data = self._get_nft_data_by_owner()
-        return len(self.token_data.get("data").get("results"))
+        if not self._holding_amount:
+            self._holding_amount = len(self._get_nft_data_by_owner())
+        return self._holding_amount
 
     @property
     def collection_value(self):
