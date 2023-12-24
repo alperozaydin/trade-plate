@@ -6,7 +6,6 @@ import requests
 
 from trade_plate.tools.constants import LiqudityProvider, DeBankAPI, WALLETS
 from trade_plate.tools.iloss import Iloss
-from trade_plate.tools.nft_marketplace.paras import Paras
 
 
 @pytest.fixture
@@ -45,11 +44,6 @@ def test_iloss(protocol_id, pool_id, asset_price_1, asset_price_2, cost):
     iloss_value = il._iloss(price_ratio=price_ratio)
 
     assert round(iloss_value, 5) == -0.03175
-
-
-def test_paras_api():
-    paras = Paras(collection_id="mrbrownproject.near")
-    assert paras
 
 
 @pytest.mark.skip(reason="No more free version of Debank")

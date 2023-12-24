@@ -10,27 +10,33 @@ LOG = logging.getLogger()
 
 
 class Paras:
-
     RATE_LIMIT_SECOND = 500
 
     def __init__(self, collection_id):
-        self._collection_id = collection_id
+        self.collection_id = collection_id
         self.session = requests.session()
-        with self.session.get(
-            PARAS.COLLECTION_STATS,
-            params={"collection_id": collection_id},
-        ) as r:
-            self.collection_stats = json.loads(r.content)
-        self.collection_data = self.collection_stats.get("data").get("results")
-        self.total_cards = self.collection_data.get("total_cards")
+        self._collection_data = None
+        self._total_cards = None
         self.collection_fp = None
         self.token_data = None
         self._collection_value = None
         self.cg = CoinGeckoAPI()
 
     @property
-    def collection_id(self):
-        return self._collection_id
+    def collection_data(self):
+        if not self._collection_data:
+            with self.session.get(
+                PARAS.COLLECTION_STATS,
+                params={"collection_id": self.collection_id},
+            ) as r:
+                self._collection_data = json.loads(r.content).get("data").get("results")
+        return self._collection_data
+
+    @property
+    def total_cards(self):
+        if not self._total_cards:
+            self._total_cards = self.collection_data.get("total_cards")
+        return self._total_cards
 
     @property
     def floor_price(self):
@@ -47,12 +53,12 @@ class Paras:
                 "__limit": "1000",
             },
         ) as r:
-            self.token_data = json.loads(r.content)
+            return json.loads(r.content)
 
     @property
     def holding_amount(self):
         if not self.token_data:
-            self._get_nft_data_by_owner()
+            self.token_data = self._get_nft_data_by_owner()
         return len(self.token_data.get("data").get("results"))
 
     @property
