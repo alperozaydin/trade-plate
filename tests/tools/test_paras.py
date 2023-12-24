@@ -38,3 +38,14 @@ def test_collection_data(mocker, mock_collection_data):
     assert data.get("collection_id")
     assert data.get("total_cards")
     assert data.get("floor_price")
+
+
+def test_holding_amount(mocker):
+    paras = Paras(collection_id="mock_collection")
+    mocker.patch.object(
+        paras,
+        "_get_nft_data_by_owner",
+        return_value=[{"_id": "mock_id1"}, {"_id": "mock_id2"}],
+    )
+
+    assert paras.holding_amount == 2
