@@ -1,6 +1,7 @@
 import subprocess
-import time
 from datetime import datetime, timedelta
+
+import time
 
 DATE_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
@@ -21,18 +22,20 @@ class NftMint:
         self.force = force
 
     def nft_mint(self):
-        output = subprocess.run(
-            [
-                "near",
-                "call",
-                f"{self.nft_contract}",
-                f"{self.mint_method_name}",
-                f"{self.mint_method_arg}",
-                "--account_id",
-                self.account_id,
-            ]
-        )
-        print(output)
+        for index in range(100):
+            print(f"INDEX: {index}")
+            output = subprocess.run(
+                [
+                    "near",
+                    "call",
+                    f"{self.nft_contract}",
+                    f"{self.mint_method_name}",
+                    self.mint_method_arg,
+                    "--account_id",
+                    self.account_id,
+                ]
+            )
+            print(output)
 
     def setup_bot(self, mint_time_str: str):
         mint_time = datetime.strptime(mint_time_str, DATE_FORMAT)
