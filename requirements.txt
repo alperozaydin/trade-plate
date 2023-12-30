@@ -2,11 +2,15 @@ aiohttp
 anyio
 click
 asyncio
+base58 # needed for py-near
 click
+loguru # needed for py-near
 matplotlib
 numpy
 pycoingecko
+pydantic # needed for py-near
 python-binance
+py-near==1.1.16
 requests
 tabulate
 yfinance
